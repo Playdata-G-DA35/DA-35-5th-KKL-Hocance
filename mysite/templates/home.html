@@ -1,0 +1,145 @@
+<!-- home.html -->
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}리뷰 사이트{% endblock %}</title>
+    <!-- 부트스트랩 CSS 링크 추가 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <style>
+        /* 추가적인 CSS 스타일링 */
+        .chart-container {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        /* 로그인 영역 */
+        .login-box {
+            text-align: center;
+        }
+
+        .login-box > * {
+            margin-bottom: 10px;
+        }
+        .logout-btn {
+            background-color: transparent; 
+            border: none; 
+            cursor: pointer;
+        }
+
+        .logout-btn:hover {
+            color: #87CEEB;; /* 호버 시 글자 색상 변경 */
+        }
+
+        /* 사이드바 스타일 */
+        .sidenav {
+            height: 100%; /* 화면 높이에 맞게 설정 */
+            width: 200px; /* 사이드바 너비 */
+            position: fixed; /* 화면에 고정 */
+            z-index: 1; /* 다른 요소 위에 보이도록 설정 */
+            top: 0; /* 화면 위쪽에 위치 */
+            right: 0px; 
+            background-color: #e0f2f1; /* 배경색 */
+            overflow-x: hidden; /* 가로 스크롤 막기 */
+            padding-top: 20px; /* 사이드바 내용 상단 여백 */
+            transition: 0.5s; 
+        }
+
+        /* 사이드바 링크 스타일 */
+        .sidenav a {
+            padding: 10px 8px 10px 16px; /* 링크 여백 */
+            text-decoration: none; 
+            font-size: 18px; /* 글꼴 크기 */
+            /* color: #black ; 글자색 */
+            display: block;
+            transition: 0.3s;
+        }
+
+        /* 사이드바 링크 호버 효과 */
+        .sidenav a:hover {
+            color: #f1f1f1; /* 호버 시 글자색 변경 */
+            background-color: #333; /* 호버 시 배경색 변경 */
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+    <!-- 네비게이션 바 -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}">
+                <img src="{% static 'images/logo.png' %}" alt="Logo" style="height: 50px;">  <!--static으로 디렉토리에서 이미지 사용-->
+            </a>
+            <button class="navbar-toggler" type="button" id="sidebarToggle">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <form action="{% url 'logout' %}" method="post"><!-- 로그아웃은 post를 써야되서 버튼형식-->
+                            {% csrf_token %}
+                            <button type="submit" class="nav-link btn btn-link logout-btn">로그아웃</button>
+                        </form>
+                    </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">로그인</a> <!--로그인 링크-->
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'signup' %}">회원가입</a> <!--회원가입 링크-->
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 사이드 네비게이션 바 -->
+    <div id="mySidenav" class="sidenav">
+        <a href="{% url 'home' %}">홈</a>
+        <a href="{% url 'review_upload:upload_review' %}">리뷰 업로드</a>
+        <a href="{% url 'polls:board' %}">게시판</a>
+        <a href="{% url 'charts:chart' %}">차트</a>
+    </div>
+
+    <!-- 메인 콘텐츠 -->
+    <div class="main" id="mainContent">
+        {% block content %}
+        <div style="text-align: center; margin-top: 20px;">
+            <h1>호텔 리뷰 관리 시스템</h1>
+            <p>환영합니다! 이 시스템은 우리 호텔의 평점과 리뷰를 효과적으로 관리하고, 고객의 의견을 기반으로 한 개선 사항을 신속하게 파악하기 위해 만들어졌습니다.</p>
+            <img src="{% static 'images/main.jpg' %}" alt="main" style="height: 650px;"> <!--호텔 이미지 경로와 크기-->
+        </div>
+        {% endblock %}
+    </div>
+
+    <!-- 부트스트랩 JS 및 기타 스크립트 -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    {% block extra_js %}{% endblock %}
+
+    <!-- 로그인 상태에 따라 사이드바 보이기/숨기기 -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var mySidenav = document.getElementById("mySidenav");
+
+            // Django에서 is_authenticated 변수를 이미 렌더링한 HTML에 포함시키고,
+            // 클라이언트 측 JavaScript에서 해당 변수를 사용하여 처리
+            var isAuthenticated = "{{ user.is_authenticated }}";
+
+            if (isAuthenticated === "False") {
+                mySidenav.classList.add("collapse");
+            }
+        });
+    </script>
+</body>
+</html>

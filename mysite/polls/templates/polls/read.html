@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+{% load static %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="en">
+    {% if post %}
+<div class="container my-3">
+    <h3 class="border-bottmo py-2"> title : {{post.title}}</h3>
+    <div class ="card my-4">
+        <div class="card-body">
+            <br class="card-text" style="white-space-collapse:pre-line;">
+                별점 : {{post.rating}}</br>
+                {{post.contents}}
+            </div>
+            <div class="mt-2 d-flex justify-content-end">
+                   작성일 : {{ post.mod_date }}
+            </div>
+            </div>
+            <a href="{% url 'polls:board' %}" class="btn btn-primary">목록</a>
+        </div>
+        </div>
+        
+        
+        </div>
+            </div>
+        {% endif %}
+        
+    </body>
+</html>

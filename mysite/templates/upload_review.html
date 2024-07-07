@@ -1,0 +1,65 @@
+{% extends 'home.html' %}
+{% load static %}
+
+{% block title %}Upload Review{% endblock %}
+
+{% block content %}
+    <h1>Upload Review</h1>
+    <!-- 업로드 폼 -->
+    <form id="uploadForm" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Upload</button>
+    </form>
+
+    <!-- 업로드 완료 팝업 -->
+    <div class="modal fade" id="uploadPopup" tabindex="-1" role="dialog" aria-labelledby="uploadPopupLabel" aria-hidden="true">
+        <!-- 팝업 대화상자 시작 -->
+        <div class="modal-dialog" role="document">
+            <!-- 팝업 컨텐츠 -->
+            <div class="modal-content">
+                <!-- 팝업 헤더 -->
+                <div class="modal-header">
+                    <!-- 팝업 제목 -->
+                    <h5 class="modal-title" id="uploadPopupLabel">업로드 완료</h5>
+                    <!-- 팝업 닫기 버튼 -->
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <!-- 팝업 본문 -->
+                <div class="modal-body">
+                    업로드가 성공적으로 완료되었습니다!
+                </div>
+                <div class="modal-footer">
+                    <!-- 팝업 닫기 버튼 -->
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 폼 서브밋 이벤트 리스너 추가
+        document.getElementById('uploadForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // 기본 서브밋 동작 방지
+
+            // AJAX를 사용하여 서버로 폼 데이터 전송
+            var formData = new FormData(this);
+
+            fetch(this.action, {  // 서버에 HTTP 요청
+                method: this.method,
+                body: formData
+            })
+            .then(response => {  // 서버 응답 처리
+                if (response.ok) {
+                    // 업로드 완료 시 팝업 창 열기
+                    $('#uploadPopup').modal('show'); // 업로드 완료 팝업 
+                }
+            })
+            .catch(error => { // 실패 시 에러 처리
+                console.error('Error:', error);
+            });
+        });
+    </script>
+{% endblock %}

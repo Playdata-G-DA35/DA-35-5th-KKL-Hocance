@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <style>
+        /* 버튼 스타일 */
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            text-align: center;
+            text-decoration: none;
+            background-color: #4CAF50; /* 버튼 배경색 */
+            color: white; /* 글자색 */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        /* 버튼 효과 */
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+        /* 로그인 영역 */
+        .login-box {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            border: 1px solid black;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 150px auto; 
+            width: 300px; 
+            text-align: center;
+        }
+
+        
+        .login-box > * {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div style="text-align: center;">
+        <h1>어서오세요 리뷰사이트입니다</h1>
+        <p>리뷰관련데이터모음</p>
+    </div>
+
+    <div class="login-box">
+        {% if user.is_authenticated %}
+            <p>안녕하세요, {{ user.username }}님!</p>
+            <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn">로그아웃</button>
+            </form>
+        {% else %}
+            <p>로그인이 필요합니다.</p>
+            <a href="{% url 'login' %}" class="btn">로그인</a>
+            <a href="{% url 'signup' %}" class="btn">회원가입</a>
+        {% endif %}
+    </div>
+</body>
+</html>

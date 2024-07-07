@@ -1,0 +1,40 @@
+<!-- chart.html -->
+{% extends 'home.html' %}
+
+{% block title %}차트{% endblock %}
+
+{% block extra_css %}
+    <style>
+        /* 추가적인 CSS 스타일링 */
+        .chart-container {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mt-4 mb-4">차트</h1>
+
+    <!-- 날짜 선택 폼 -->
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    <!-- 그래프 1 -->
+    <div class="chart-container">
+        <h2 class="text-center">Daily Average Ratings</h2>
+        <img src="data:image/png;base64,{{ avg_rating_graph }}" alt="Daily Average Ratings" style="width: 100%;">
+    </div>
+    
+    <!-- 그래프 2 -->
+    <div class="chart-container">
+        <h2 class="text-center">Daily Review Counts</h2>
+        <img src="data:image/png;base64,{{ review_count_graph }}" alt="Daily Review Counts" style="width: 100%;">
+    </div>
+</div>
+{% endblock %}

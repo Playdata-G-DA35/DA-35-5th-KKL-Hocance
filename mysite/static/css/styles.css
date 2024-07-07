@@ -1,0 +1,8 @@
+body {
+    background-color: #e6e6fa; /* 배경색 설정 */
+}
+.navbar {   /* 네비게이션바*/
+    background-color: #ffffff; /* 배경색 */
+    color: #333333; /*  글씨색 */
+    
+}
