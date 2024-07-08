@@ -2,26 +2,23 @@ from django.db import models
 from django.utils import timezone
 from django.urls import reverse
 from django.core.validators import MinValueValidator, MaxValueValidator
-
+from review_upload.models import Review
 
 # Create your models here.
 
-class Post(models.Model):
-    title = models.CharField('제목', max_length=50)
-    contents = models.TextField()
-    pub_date = models.DateTimeField('PUBLISH DATE', default=timezone.now)
-    mod_date = models.DateTimeField('작성일', auto_now=True)
-    rating = models.FloatField('별점',null=True, blank=True)  # 별점 필드 추가
+# review_app/models.py
+# 리뷰 업로드
+# 파일을 열고 리뷰를 저장할 모델 정의
 
 
-    def __str__(self): #게시판에 제목
-        return self.title
+class Review1(models.Model):
+    review = models.TextField()
+    rating = models.IntegerField()
+    date = models.DateField()
+    sentiment = models.CharField(max_length=10)  # '감정' 컬럼을 위한 필드
+
+    def __str__(self):
+        return self.review
     
-    def get_previous(self): #작성일
-        return self.get_previous_by_mod_date()
+
     
-    def get_next(self):
-        return self.get_next_by_mod_date()
-    
-    class Meta:
-            verbose_name='post'

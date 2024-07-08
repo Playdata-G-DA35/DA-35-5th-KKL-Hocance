@@ -1,12 +1,14 @@
 from django import forms
-from . models import Post
+from review_upload.models import Review
 
 
-class Postform(forms.ModelForm):
+
+class ReviewForm(forms.ModelForm):
     class Meta:
-        model = Post
-        fields = ('id','title', 'contents','rating')
+        model = Review
+        fields = ('review', 'rating', 'date', 'sentiment')
         widgets = {
-            'rating': forms.NumberInput(attrs={'Min': 0, 'Max': 5, 'Step': 1}),
+            'rating': forms.NumberInput(attrs={'min': 0, 'max': 5, 'step': 1}),
         }
+
        

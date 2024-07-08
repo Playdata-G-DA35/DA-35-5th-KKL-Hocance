@@ -1,8 +1,8 @@
 # review_app/models.py
 # 리뷰 업로드
 # 파일을 열고 리뷰를 저장할 모델 정의
-
 from django.db import models
+
 
 class Review(models.Model):
     review = models.TextField()
