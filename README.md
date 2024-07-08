@@ -40,9 +40,7 @@
 
 ## 6. 화면설계서
 
-- 화면 설계서는 UI/UX 디자인이 아니라 방향을 잡는데 사용하는 초기 디자인이다.
-- PPT 를 이용해 화면을 어떻게 구성할지 그리고 설명이 필요한 구성요소는 간단하게 설명을 작성한다.
-- (SW 분석설계  pdf 28 page 참고)
+- https://github.com/Playdata-G-DA35/DA-35-5th-KKL-Hocance/tree/main/%ED%99%94%EB%A9%B4%EC%84%A4%EA%B3%84%EC%84%9C
 
 ## 7. 어플리케이션 설계서
 
