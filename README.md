@@ -40,7 +40,7 @@
 
 ## 6. 화면설계서
 
-* [화면설계서](https://github.com/Playdata-G-DA35/DA-35-5th-KKL-Hocance/tree/main/%ED%99%94%EB%A9%B4%EC%84%A4%EA%B3%84%EC%84%9C) </br>
+* [화면설계서](https://github.com/Playdata-G-DA35/DA-35-5th-KKL-Hocance/blob/main/%ED%99%94%EB%A9%B4%EC%84%A4%EA%B3%84%EC%84%9C.md) </br>
 
 ## 7. 어플리케이션 설계서
 
