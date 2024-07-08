@@ -7,16 +7,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <html lang="en">
-    {% if review1 %}
+    {% if review %}
 <div class="container my-3">
-    <h3 class="border-bottmo py-2"> review : {{review1.REVIEW}}</h3>
-    <div class ="card my-4">
+        <div class ="card my-4">
         <div class="card-body">
             <br class="card-text" style="white-space-collapse:pre-line;">
-                별점 : {{review1.RATING}}</br>
+            <h3 class="border-bottmo py-5"> review : {{ review.review}}</h3>
+
+                별점 : {{ review.rating }}</br>
             </div>
             <div class="mt-2 d-flex justify-content-end">
-                   작성일 : {{ review1.DATE }}
+                   작성일 : {{ review.date }}
+                   Posi/Neg : {{ review.sentiment }}
             </div>
             </div>
             <a href="{% url 'polls:board' %}" class="btn btn-primary">목록</a>

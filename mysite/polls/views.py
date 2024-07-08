@@ -8,13 +8,13 @@ from django.contrib.auth.decorators import login_required
 
 
 def board(request):
-    review_list = Review.objects.all()[:100]
+    review_list = Review.objects.all().order_by('-date')
     context = {'review_list': review_list}
     return render(request, 'polls/board.html', context)
 
 
-def read(request, pk):
-    post = Review.objects.get(pk=pk)
+def read(request, id):
+    post = Review.objects.get(id=id)
     context = {'review': post}
     return render(request, "polls/read.html",context)
     

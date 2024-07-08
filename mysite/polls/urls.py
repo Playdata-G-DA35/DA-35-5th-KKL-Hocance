@@ -6,6 +6,6 @@ app_name='polls' ##게시판 앱
 
 urlpatterns = [
     path('board/', views.board, name="board"),
-    path('board/<int:pk>', views.read, name="read"),
+    path('board/<int:id>', views.read, name="read"),
 
 ]
