@@ -89,24 +89,24 @@
 | 2   |                   |                  | LOGOUT                | Template     | template     | accounts/templates/accounts      |
 | 3   |                   |                  | signup.html           | Template     | template     | accounts/templates/accounts      |
 | 4   |                   |                  | signup                | view         | function     | accounts/views.py                |
-| 5   | 사이드 내비게이션바 | myapp            | home_view             | view         | function     | 이주호  myapp/views.py           |
-| 6   |                   |                  | home.html             | Template     | template     | 이주호  mysite/templates         |
-| 7   | 평점차트           | chart            | rating_chart          | View         | function     | 김연중  chart/views.py            |
-| 8   |                   |                  | chart.html            | Template     | template     | 김연중  mysite/templates          |
-| 9   |                   |                  | DateRangeForm         | forms        | function     | 김연중  chart/forms.py            |
-| 10  | 메인화면           | page             | home                  | View         | function     | 이주호  pages/views.py            |
-| 11  |                   |                  | home.html             | Template     | template     | 이주호  pages/templates           |
-| 12  | 리뷰게시판         | polls            | ReviewAdmin           | admin        | function     | 김주화  polls/admin.py            |
-| 13  |                   |                  | ReviewForm            | form         | function     | 김주화  polls/form.py             |
-| 14  |                   |                  | board                 | function     | function     | 김주화  polls/views.py            |
-| 15  |                   |                  | read                  | function     | function     | 김주화  polls/views.py            |
-| 16  |                   |                  | board.html            | Template     | template     | 김주화  polls/templates/polls     |
-| 17  |                   |                  | read.html             | Template     | template     | 김주화  polls/templates/polls     |
-| 18  | 리뷰 업로드        | REVIVEW_UPLOAD   | ReviewUploadForm      | form         | form         | 김연중  review_upload/forms.py    |
-| 19  |                   |                  | Review                | models       | function     | 김연중  review_upload/models.py   |
-| 20  |                   |                  | upload_review         | View         | view         | 김연중  review_upload/views.py    |
-| 21  |                   |                  | upload_review.html    | Template     | template     | 김연중  mysite/templates          |
-| 22  |                   |                  | upload_success.html   | Template     | template     | 김연중/이주호 mysite/templates   |
+| 5   | 사이드 내비게이션바 | myapp            | home_view             | view         | function     | myapp/views.py           |
+| 6   |                   |                  | home.html             | Template     | template     | mysite/templates         |
+| 7   | 평점차트           | chart            | rating_chart          | View         | function     | chart/views.py            |
+| 8   |                   |                  | chart.html            | Template     | template     | mysite/templates          |
+| 9   |                   |                  | DateRangeForm         | forms        | function     | chart/forms.py            |
+| 10  | 메인화면           | page             | home                  | View         | function     | pages/views.py            |
+| 11  |                   |                  | home.html             | Template     | template     | pages/templates           |
+| 12  | 리뷰게시판         | polls            | ReviewAdmin           | admin        | function     | polls/admin.py            |
+| 13  |                   |                  | ReviewForm            | form         | function     | polls/form.py             |
+| 14  |                   |                  | board                 | function     | function     | polls/views.py            |
+| 15  |                   |                  | read                  | function     | function     | polls/views.py            |
+| 16  |                   |                  | board.html            | Template     | template     | polls/templates/polls     |
+| 17  |                   |                  | read.html             | Template     | template     | polls/templates/polls     |
+| 18  | 리뷰 업로드        | REVIVEW_UPLOAD   | ReviewUploadForm      | form         | form         | review_upload/forms.py    |
+| 19  |                   |                  | Review                | models       | function     | review_upload/models.py   |
+| 20  |                   |                  | upload_review         | View         | view         | review_upload/views.py    |
+| 21  |                   |                  | upload_review.html    | Template     | template     | mysite/templates          |
+| 22  |                   |                  | upload_success.html   | Template     | template     | mysite/templates   |
 
 
 
