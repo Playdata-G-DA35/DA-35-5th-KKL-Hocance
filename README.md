@@ -4,9 +4,7 @@
    * 호캉스 : 호텔 업체의 자사 호텔 리뷰 및 평점을 효율적으로 관리하는 시스템
 
 ## 2. 프로젝트 주제 간단한 소개
-   * 자사 호텔의 리뷰 데이터를 통합관리시스템에 업로드
-   * 자사 호텔 리뷰를 효율적으로 관리하고 고객의 의견을 기반 서비스 개선 및 기획
-   * 자사 호텔의 평판(리뷰, 평점, 긍정/부정) 일별로 확인하여 자사 호텔의 위기관리
+   * 자사 호텔의 리뷰 데이터를 통합관리시스템
 
 ## 3. 팀원과 담당업무
    1. 김주화 : 게시판 app, 리뷰 업로드 데이터 게시판 app 시각화?
@@ -46,93 +44,112 @@
 
 ### 7-1. 데이터베이스 정의서
 
-테이블 정의서
-- 데이터베이스 테이블 구조를 기술한다.
-- 다음 항목을 작성한다.
-	- 테이블이름
-	- 테이블 설명
-	- 컬럼 정의
-		- 컬럼명
-		- 데이터타입
-		- 길이
-		- NULL 허용여부
-		- 기본값
-		- 제약조건
-		- 컬럼 설명
-- 컬럼 정의는 표로 작성한다.
-테이블 정의서 예
+#### 1) 사용자 정보 테이블
 
-테이블명: ORDERS
-테이블 설명: 고객의 주문 정보를 저장하는 테이블 
+- **테이블명 : auth_user**
+- 테이블 설명 : 사용자 정보를 저장하는 테이블 
+- 컬럼 정보
 
-컬럼 정보
+### 테이블: [테이블 이름]
 
-
-
-컬럼명
-데이터타입
-길이
-Null 허용
-기본값
-제약조건
-설명
-ORDER_ID
-INT
+| 번호 | 컬럼명       | 데이터 타입  | Not Null | 기본값 | Primary Key |
+| ---- | ------------ | ------------ | -------- | ------- | ----------- |
+| 0    | id           | INTEGER      | Yes      | None    | Yes         |
+| 1    | password     | VARCHAR(128) | Yes      | None    | No          |
+| 2    | last_login   | DATETIME     | No       | None    | No          |
+| 3    | is_superuser | BOOL         | Yes      | None    | No          |
+| 4    | username     | VARCHAR(150) | Yes      | None    | No          |
+| 5    | last_name    | VARCHAR(150) | Yes      | None    | No          |
+| 6    | email        | VARCHAR(254) | Yes      | None    | No          |
+| 7    | is_staff     | BOOL         | Yes      | None    | No          |
+| 8    | is_active    | BOOL         | Yes      | None    | No          |
+| 9    | date_joined  | DATETIME     | Yes      | None    | No          |
+| 10   | first_name   | VARCHAR(150) | Yes      | None    | No          |
 
 
-N
+#### 2) 리뷰 데이터 정보 테이블
 
+- **테이블명 : review_upload_review**
+- 테이블 설명 : 리뷰의 평점, 내용, 일자, 긍/부정 정보를 저장하는 테이블 
+- 컬럼 정보
 
-PK
-주문 ID
-CUSTOMER_ID
-INT
-
-
-N
-
-
-FK
-주문 고객 ID. CUSTOMER 참조
-ORDER_DATE
-DATETIME
-
-
-N
-CURRENT_TIMESTAMP
-
-
-주문일시
-TOTAL_AMOUNT
-INT
-
-
-N
-0
-
-
-주문 총 금액
-STATUS
-VARCHAR
-20
-N
-‘PENDING’
-
-
-주문 처리 상태
+| 번호 | 컬럼명   | 데이터 타입   | Not Null | 기본값 | Primary Key |
+| ---- | -------- | ------------- | -------- | ------- | ----------- |
+| 0    | id       | INTEGER       | Yes      | None    | Yes         |
+| 1    | review   | TEXT          | Yes      | None    | No          |
+| 2    | rating   | INTEGER       | Yes      | None    | No          |
+| 3    | date     | DATE          | Yes      | None    | No          |
+| 4    | sentiment| VARCHAR(10)   | Yes      | None    | No          |
 
 ### 7-2. 프로그램 파일 목록
 
-프로그램 목록
+| NO  | 단위업무명        | App              | 이름                  | 프로그램분류 | 프로그램타입 | 위치                             |
+|-----|-------------------|------------------|-----------------------|--------------|--------------|----------------------------------|
+| 1   | 회원관리          | accounts         | LOGIN                 | Template     | template     | accounts/templates/accounts      |
+| 2   |                   |                  | LOGOUT                | Template     | template     | accounts/templates/accounts      |
+| 3   |                   |                  | signup.html           | Template     | template     | accounts/templates/accounts      |
+| 4   |                   |                  | signup                | view         | function     | accounts/views.py                |
+| 5   | 사이드 내비게이션바 | myapp            | home_view             | view         | function     | 이주호  myapp/views.py           |
+| 6   |                   |                  | home.html             | Template     | template     | 이주호  mysite/templates         |
+| 7   | 평점차트           | chart            | rating_chart          | View         | function     | 김연중  chart/views.py            |
+| 8   |                   |                  | chart.html            | Template     | template     | 김연중  mysite/templates          |
+| 9   |                   |                  | DateRangeForm         | forms        | function     | 김연중  chart/forms.py            |
+| 10  | 메인화면           | page             | home                  | View         | function     | 이주호  pages/views.py            |
+| 11  |                   |                  | home.html             | Template     | template     | 이주호  pages/templates           |
+| 12  | 리뷰게시판         | polls            | ReviewAdmin           | admin        | function     | 김주화  polls/admin.py            |
+| 13  |                   |                  | ReviewForm            | form         | function     | 김주화  polls/form.py             |
+| 14  |                   |                  | board                 | function     | function     | 김주화  polls/views.py            |
+| 15  |                   |                  | read                  | function     | function     | 김주화  polls/views.py            |
+| 16  |                   |                  | board.html            | Template     | template     | 김주화  polls/templates/polls     |
+| 17  |                   |                  | read.html             | Template     | template     | 김주화  polls/templates/polls     |
+| 18  | 리뷰 업로드        | REVIVEW_UPLOAD   | ReviewUploadForm      | form         | form         | 김연중  review_upload/forms.py    |
+| 19  |                   |                  | Review                | models       | function     | 김연중  review_upload/models.py   |
+| 20  |                   |                  | upload_review         | View         | view         | 김연중  review_upload/views.py    |
+| 21  |                   |                  | upload_review.html    | Template     | template     | 김연중  mysite/templates          |
+| 22  |                   |                  | upload_success.html   | Template     | template     | 김연중/이주호 mysite/templates   |
 
-구현할 Model, View, template 등 의 목록을 표로 작성
 
-프로그램목록 예
 
 ## 10. 최종 보고서
 
+### 10-1) 프로젝트 주제
 
-최종 보고서
-프로젝트  주제, 목적, 선택 이유
-프로젝트 진행 도중 발생했던 문제와 해결 방식
-차후 업그레이드 계획
+* 자사 호텔의 리뷰 데이터를 통합관리시스템에 업로드
+* 자사 호텔 리뷰를 효율적으로 관리하고 고객의 의견을 기반 서비스 개선 및 기획
+* 자사 호텔의 평판(리뷰, 평점, 긍정/부정) 일별로 확인하여 자사 호텔의 위기관리
+
+### 10-2) 프로젝트 목적(선택 이유)
+
+* 비즈니스 환경에서 본사는 여러 지점을 운영하는 경우가 많다. 각 지점에서 수집되는 고객 의견을 한 곳에서 효율적으로 관리하는 일은 매우 중요한 과제이지만 각 지점의 리뷰 데이터를 수동으로 수집하고 분석하는 것은 시간과 자원이 많이 소모되며, 데이터의 일관성과 신뢰성을 확보하기에 한계가 있다.
+
+* 이 프로젝트의 주요 목적는 각 지점에서 수집되는 리뷰 데이터를 통합 관리 시스템에 저장하고, 본사 직원들이 지점별 고객 의견을 효과적으로 확인하고 개선할 수 있도록 하는 시스템을 구축하는 것이다. 이를 통해 고객의 의견을 반영하여 새로운 서비스를 기획하거나 기존 서비스를 개선하는 과정을 효율적으로 수행 할 수 있다.
+
+### 10-3) 프로젝트 도중 발생했던 문제 및 해결방식
+
+* **권한없는 사용자 정보 전달 제한**
+  * 홈화면을 따로 구현하고 로그인을 하지 않는다면 접근하지 못하도록 웹 화면 구현
+* **웹사이트 크롤링**
+  * 웹사이트 크롤링을 하여 특정 호텔의 리뷰를 가져오려 했으나, 자동화된 접근을 막아 호텔 리뷰 데이터셋 활용
+  * 해당 데이터 셋은 리뷰 내용, 별점만 가지고 있으나 구현하려고 하는 웹사이트는 일자, 긍/부정 등의 데이터를 예시로 보여주고자하여 임의로 데이터를 넣어 활용
+* **chart 구현**
+  * chart를 구현하는 다양한 방법을 시도했으나, 오류가 지속적으로 발생
+  * 가장 기본적인 방법인 matplotlib을 활용해 이미지를 저장하고 웹사이트에 해당 이미지를 보여주는 방식으로 차트를 구현
+* **업로드된 review데이터를 게시판 화면에 구현**
+  * 리뷰가 review_upload_review라는 테이블로 db에 저장이 되었으나, 게시판에 해당 데이터를 시각화하는 부분에서 한계발생
+  * admin에 review_upload_review 데이터 연결하여 admin 페이지에서는 리뷰 데이터가 확인이됐지만 실제 웹화면에서는 구현이 안됨
+  * views.py, urls.py, board.html 수정하여 데이터 게시판 화면에 제공
+
+### 10-4) 프로젝트 차후 업그레이드 계획
+* **주제 분석을 통한 차트 개선**
+	* 리뷰 데이터를 주제별로 분석하여 차트에 반영. 
+	자연어 처리(NLP) 기술을 활용해 리뷰 내용을 주제별로 분류하고, 각 주제에 대한 리뷰 수, 평점, 긍정/부정 비율 등을 시각화
+
+* **리뷰 내용 전처리 및 불필요한 내용 제거**
+	* 불필요한 공백 및 특수 문자 제거: 텍스트에서 불필요한 공백, 특수 문자 등을 제거
+	* 오타 수정 및 정규화: 일반적으로 발생하는 오타를 수정 및 동일한 의미를 가지는 단어를 정규화
+	* 중복 리뷰 제거: 동일한 사용자가 여러 번 작성한 중복 리뷰를 제거
+	* 스팸 리뷰 필터링: 자동화된 스팸 리뷰를 필터링
+
+* **게시판 정렬 기능 추가**
+	* 게시판에서 리뷰를 날짜, 별점, 긍정/부정 기준으로 정렬할 수 있는 기능을 추가할 예정
+	* 날짜별 정렬, 별점별 정렬 긍/부정 정렬
